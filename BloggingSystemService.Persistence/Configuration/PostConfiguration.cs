@@ -13,10 +13,10 @@ namespace BloggingSystemService.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {
-            // Configure the primary key
+
             builder.HasKey(p => p.Id);
 
-            // Configure properties
+
             builder.Property(p => p.Title)
                 .IsRequired()
                 .HasMaxLength(200);
@@ -29,17 +29,14 @@ namespace BloggingSystemService.Persistence.Configuration
                 .IsRequired()
                 .HasDefaultValueSql("GETDATE()");
 
-            // Configure the relationship with Blog
+
             builder.HasOne(p => p.Blog)
                 .WithMany(b => b.Posts)
                 .HasForeignKey(p => p.BlogId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship with Author
-            builder.HasOne(p => p.Author)
-                .WithMany(a => a.Posts)
-                .HasForeignKey(p => p.AuthorId)
-                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
     }
 }
