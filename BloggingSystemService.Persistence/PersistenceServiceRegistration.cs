@@ -20,6 +20,7 @@ namespace BloggingSystemService.Persistence
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
+
             services.AddDbContext<BlogDbContext>(Options => Options.UseSqlServer(config.GetConnectionString("defaultConnection")));
             return services;
         }

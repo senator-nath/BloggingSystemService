@@ -9,10 +9,10 @@ namespace BloggingSystemService.Application.Dto.Request
 {
     public class AuthorRequestDto
     {
-         
+
         public string Name { get; set; }
         public string Email { get; set; }
 
-        public ICollection<Blog> Blogs { get; set; } = new List<Blog>();
+
     }
 }

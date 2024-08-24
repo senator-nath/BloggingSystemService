@@ -15,6 +15,6 @@ namespace BloggingSystemService.Application.Dto.Request
 
         public int AuthorId { get; set; }
 
-        public ICollection<Post> Posts { get; set; } = new List<Post>();
+
     }
 }

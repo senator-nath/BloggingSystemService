@@ -13,13 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BloggingSystemService.API",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BloggingsystemService.Application", "BloggingsystemService.Application", "{10B38087-328C-471A-B8FC-F0C0EE97E9BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggingSystemService.API", "BloggingSystemService.API\BloggingSystemService.API.csproj", "{2C3F42DA-7A04-484E-8F60-A9D9F43C68AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingSystemService.API", "BloggingSystemService.API\BloggingSystemService.API.csproj", "{2C3F42DA-7A04-484E-8F60-A9D9F43C68AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggingSystemService.Application", "BloggingSystemService.Application\BloggingSystemService.Application.csproj", "{C1160CB8-1AB8-4BD6-AADC-D12F451EEC0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingSystemService.Application", "BloggingSystemService.Application\BloggingSystemService.Application.csproj", "{C1160CB8-1AB8-4BD6-AADC-D12F451EEC0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggingSystemService.Domain", "BloggingSystemService.Domain\BloggingSystemService.Domain.csproj", "{4B064977-2EA7-44D4-87CF-25E0F0C934AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingSystemService.Domain", "BloggingSystemService.Domain\BloggingSystemService.Domain.csproj", "{4B064977-2EA7-44D4-87CF-25E0F0C934AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggingSystemService.Persistence", "BloggingSystemService.Persistence\BloggingSystemService.Persistence.csproj", "{874DE2E3-1237-482E-8ED6-C2C4099D4476}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingSystemService.Persistence", "BloggingSystemService.Persistence\BloggingSystemService.Persistence.csproj", "{874DE2E3-1237-482E-8ED6-C2C4099D4476}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

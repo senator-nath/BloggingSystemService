@@ -14,7 +14,9 @@ namespace BloggingSystemService.Application.Contracts.RepositoryContracts
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
+        Task<T> GetByIdAsync(T id);
 
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
+        Task<(IEnumerable<T> Items, int totalCount)> GetPaginatedListAsync(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize);
     }
 }

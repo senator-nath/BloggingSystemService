@@ -10,29 +10,29 @@ namespace BloggingSystemService.Persistence.Implementation.RepositoryImplementat
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly BlogDbContext _dbContest;
+        private readonly BlogDbContext _dbContext;
         public IBlogRepository blogRepository { get; }
 
         public IAuthorRepository authorRepository { get; }
 
         public IPostRepository postRepository { get; }
-        public UnitOfWork(BlogDbContext dbContest)
+        public UnitOfWork(BlogDbContext dbContext)
         {
-            _dbContest = dbContest;
+            _dbContext = dbContext;
 
-            blogRepository = new BlogRepository(dbContest);
-            authorRepository = new AuthorRepository(dbContest);
-            postRepository = new PostRepository(dbContest);
+            blogRepository = new BlogRepository(dbContext);
+            authorRepository = new AuthorRepository(dbContext);
+            postRepository = new PostRepository(dbContext);
         }
         public async Task<int> CompleteAsync()
         {
-            var save = await _dbContest.SaveChangesAsync();
+            var save = await _dbContext.SaveChangesAsync();
             return save;
         }
 
         public void Dispose()
         {
-            _dbContest.DisposeAsync();
+            _dbContext.DisposeAsync();
         }
     }
 }

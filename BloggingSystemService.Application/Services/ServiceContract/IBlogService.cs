@@ -10,11 +10,10 @@ namespace BloggingSystemService.Application.Services.ServiceContract
 {
     public interface IBlogService
     {
-        Task<IEnumerable<BlogResponseDetails>> GetAllBlogAsync();
+
         Task<IEnumerable<BlogResponseDetails>> GetAllBlogByAuthorIdAsync(int id);
-        Task<IEnumerable<BlogResponseDetails>> GetAllBlogByAuthorAsync(string Author);
         Task<BlogResponseDetails> AddBlogAsync(BlogRequestDto request);
-        Task<BlogResponseDetails> UpdateBlogAsync(BlogRequestDto request);
-        Task<BlogResponseDetails> DeleteBlogAsync(BlogRequestDto request);
+        Task<BlogResponseDetails> UpdateBlogAsync(BlogRequestDto request, int id);
+        Task<BlogResponseDetails> DeleteBlogAsync(int id);
     }
 }

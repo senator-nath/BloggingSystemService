@@ -32,7 +32,7 @@ namespace BloggingSystemService.Persistence.Configuration
                 .HasForeignKey(b => b.AuthorId);
 
 
-             
+
 
 
         }

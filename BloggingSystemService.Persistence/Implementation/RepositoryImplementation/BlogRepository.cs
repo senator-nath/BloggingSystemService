@@ -15,5 +15,9 @@ namespace BloggingSystemService.Persistence.Implementation.RepositoryImplementat
         {
 
         }
+        public async Task<(IEnumerable<Blog> Blogs, int TotalCount)> GetBlogsByAuthorIdAsync(int authorId, int pageNumber, int pageSize)
+        {
+            return await GetPaginatedListAsync(blog => blog.AuthorId == authorId, pageNumber, pageSize);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace BloggingSystemService.Persistence.Implementation.RepositoryImplementat
         private readonly BlogDbContext _dbContext;
         public GenericRepository(BlogDbContext dbContext)
         {
-
+            _dbContext = dbContext;
         }
 
         public void Add(T entity)
@@ -47,6 +47,21 @@ namespace BloggingSystemService.Persistence.Implementation.RepositoryImplementat
         public void Update(T entity)
         {
             _dbContext.Set<T>().Update(entity);
+        }
+        public async Task<T> GetByIdAsync(T id)
+        {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id), "Id cannot be null.");
+
+            return await _dbContext.Set<T>().FindAsync(id);
+        }
+
+        public async Task<(IEnumerable<T> Items, int totalCount)> GetPaginatedListAsync(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize)
+        {
+            var query = _dbContext.Set<T>().Where(predicate);
+            var totalCount = await query.CountAsync();
+            var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return (items, totalCount);
         }
     }
 }
