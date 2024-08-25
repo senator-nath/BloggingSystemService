@@ -23,14 +23,13 @@ namespace BloggingSystemService.Application.Services.ServiceImplementation
     public class AuthorService : IAuthorService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<AuthorService> _logger;
+
         private readonly JwtTokenGenerator _jwtGenerator;
         private readonly AuthorRequestValidator _validator;
 
-        public AuthorService(IUnitOfWork unitOfWork, ILogger<AuthorService> logger, JwtTokenGenerator jwtGenerator, AuthorRequestValidator validator)
+        public AuthorService(IUnitOfWork unitOfWork, JwtTokenGenerator jwtGenerator, AuthorRequestValidator validator)
         {
             _unitOfWork = unitOfWork;
-            _logger = logger;
             _jwtGenerator = jwtGenerator;
             _validator = validator;
         }
@@ -40,7 +39,7 @@ namespace BloggingSystemService.Application.Services.ServiceImplementation
             var validationResult = _validator.Validate(request);
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Authentication failed due to validation errors: {Errors}", validationResult.Errors);
+                Log.Warning("Authentication failed due to validation errors: {Errors}", validationResult.Errors);
                 return new AuthorResponseDetails
                 {
                     Message = "Validation failed",
@@ -73,15 +72,29 @@ namespace BloggingSystemService.Application.Services.ServiceImplementation
             var validationResult = _validator.Validate(request);
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Registration failed due to validation errors: {Errors}", validationResult.Errors);
+                Log.Warning("Registration failed due to validation errors: {Errors}", validationResult.Errors);
                 return new AuthorResponseDetails
                 {
                     Message = "Validation failed",
-
+                    IsSuccess = false
                 };
             }
+
             Log.Information("Starting registration process for author with email: {Email}", request.Email);
 
+            // Check if the email already exists
+            bool emailExists = await _unitOfWork.authorRepository.ExistsAsync(a => a.Email == request.Email);
+            if (emailExists)
+            {
+                Log.Warning("Registration failed for email: {Email} - Email already exists", request.Email);
+                return new AuthorResponseDetails
+                {
+                    Message = "Email already exists",
+                    IsSuccess = false
+                };
+            }
+
+            // Create a new author
             var author = new Author
             {
                 Name = request.Name,
@@ -94,7 +107,8 @@ namespace BloggingSystemService.Application.Services.ServiceImplementation
             Log.Information("Registration successful for author with email: {Email}", request.Email);
             return new AuthorResponseDetails
             {
-                Message = "Registration Successful"
+                Message = "Registration Successful",
+                IsSuccess = true
             };
         }
     }

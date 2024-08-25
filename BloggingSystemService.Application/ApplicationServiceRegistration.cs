@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BloggingSystemService.Application.Dto.Request;
+using BloggingSystemService.API.Validator;
 
 
 namespace BloggingSystemService.Application
@@ -21,7 +23,9 @@ namespace BloggingSystemService.Application
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<JwtTokenGenerator>();
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddScoped<AuthorRequestValidator>();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+
 
             return services;
         }

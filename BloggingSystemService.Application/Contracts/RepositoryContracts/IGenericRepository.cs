@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BloggingSystemService.Application.Helper;
+using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -17,6 +19,11 @@ namespace BloggingSystemService.Application.Contracts.RepositoryContracts
         Task<T> GetByIdAsync(T id);
 
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
-        Task<(IEnumerable<T> Items, int totalCount)> GetPaginatedListAsync(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize);
+        Task<PaginatedList<T>> GetPaginatedAsync(
+        Expression<Func<T, bool>> predicate,
+        int pageNumber,
+        int pageSize,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
     }
 }

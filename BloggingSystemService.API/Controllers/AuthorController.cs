@@ -15,12 +15,11 @@ namespace BloggingSystemService.API.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorService _authorService;
-        private readonly IMediator _mediator;
-
-        public AuthorController(IAuthorService authorService, IMediator mediator)
+        //private readonly IMediator _mediator;
+        public AuthorController(IAuthorService authorService/* IMediator mediator*/)
         {
             _authorService = authorService;
-            _mediator = mediator;
+            //_mediator = mediator;
         }
 
         [HttpPost]
@@ -29,7 +28,8 @@ namespace BloggingSystemService.API.Controllers
         {
 
             {
-                var result = await _mediator.Send(new RegisterAuthorCommand(requestDto));
+                var result = await _authorService.RegisterAuthorAsync(requestDto);
+                //var result = await _mediator.Send(new RegisterAuthorCommand(requestDto));
                 return Ok(result);
             }
 
@@ -37,11 +37,12 @@ namespace BloggingSystemService.API.Controllers
 
         [HttpPost]
         [Route("authenticate")]
-        public async Task<IActionResult> AuthenticateAuthor([FromBody] AuthorRequestDto requestDto)
+        public async Task<IActionResult> AuthenticateAuthorAsync([FromBody] AuthorRequestDto requestDto)
         {
 
             {
-                var result = await _mediator.Send(new AuthenticateAuthorCommand(requestDto));
+                //var result = await _mediator.Send(new AuthenticateAuthorCommand(requestDto));
+                var result = await _authorService.AuthenticateAuthorAsync(requestDto);
                 return Ok(result);
             }
 

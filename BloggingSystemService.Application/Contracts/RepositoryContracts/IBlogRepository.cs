@@ -9,6 +9,8 @@ namespace BloggingSystemService.Application.Contracts.RepositoryContracts
 {
     public interface IBlogRepository : IGenericRepository<Blog>
     {
+        //Task<(IEnumerable<Blog> Blogs, int TotalCount)> GetBlogsByAuthorIdAsync(int authorId, int pageNumber, int pageSize);
+
 
     }
 }

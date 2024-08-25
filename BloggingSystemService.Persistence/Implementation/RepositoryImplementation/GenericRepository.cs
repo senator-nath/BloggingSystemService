@@ -1,6 +1,8 @@
 ﻿using BloggingSystemService.Application.Contracts.RepositoryContracts;
+using BloggingSystemService.Application.Helper;
 using BloggingSystemService.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,12 +58,33 @@ namespace BloggingSystemService.Persistence.Implementation.RepositoryImplementat
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<(IEnumerable<T> Items, int totalCount)> GetPaginatedListAsync(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize)
+        public async Task<PaginatedList<T>> GetPaginatedAsync(
+       Expression<Func<T, bool>> predicate,
+       int pageNumber,
+       int pageSize,
+       Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
-            var query = _dbContext.Set<T>().Where(predicate);
-            var totalCount = await query.CountAsync();
-            var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return (items, totalCount);
+            IQueryable<T> query = _dbContext.Set<T>();
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            query = query.Where(predicate);
+
+            var count = await query.CountAsync();
+            var items = await query.Skip((pageNumber - 1) * pageSize)
+                                   .Take(pageSize)
+                                   .ToListAsync();
+
+            return new PaginatedList<T>(items, count, pageNumber, pageSize);
         }
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbContext.Set<T>().AnyAsync(predicate);
+        }
+
     }
 }
+

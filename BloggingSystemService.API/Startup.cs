@@ -16,6 +16,9 @@ using BloggingSystemService.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MediatR;
+using System.Reflection;
+using Serilog;
 namespace BloggingSystemService.API
 {
     public class Startup
@@ -38,6 +41,7 @@ namespace BloggingSystemService.API
             });
             services.AddPersistenceService(Configuration);
             services.AddApplicationService();
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
@@ -71,7 +75,7 @@ namespace BloggingSystemService.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BloggingSystemService.API v1"));
             }
-
+            app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
 
             app.UseRouting();

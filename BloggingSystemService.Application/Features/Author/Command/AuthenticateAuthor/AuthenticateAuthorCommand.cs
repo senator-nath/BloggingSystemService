@@ -11,7 +11,7 @@ namespace BloggingSystemService.Application.Features.Author.Command.Authenticate
 {
     public class AuthenticateAuthorCommand : IRequest<AuthorResponseDetails>
     {
-        internal readonly AuthorRequestDto requestDto;
+        public AuthorRequestDto requestDto;
 
         public AuthenticateAuthorCommand(AuthorRequestDto requestDto)
         {

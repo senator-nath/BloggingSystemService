@@ -1,5 +1,6 @@
 ﻿using BloggingSystemService.Application.Dto.Request;
 using BloggingSystemService.Application.Services.ServiceContract;
+using BloggingSystemService.Application.Services.ServiceImplementation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -42,11 +43,12 @@ namespace BloggingSystemService.API.Controllers
 
 
         [HttpGet]
-        [Route("by-blog-id/{id}")]
-        public async Task<IActionResult> GetAllPostsByBlogId(int id)
+        [Route("by-blog-id/{blogId}")]
+        public async Task<IActionResult> GetBlogsByAuthorId(int blogId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _postService.GetAllPostByBlogIdAsync(id);
+            var result = await _postService.GetPostByBlogId(blogId, pageNumber, pageSize);
             return Ok(result);
+
         }
 
         [HttpPut]

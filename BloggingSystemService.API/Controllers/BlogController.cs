@@ -2,6 +2,7 @@
 using BloggingSystemService.Application.Services.ServiceContract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BloggingSystemService.API.Controllers
@@ -40,12 +41,12 @@ namespace BloggingSystemService.API.Controllers
 
 
 
-        [HttpGet]
-        [Route("by-author-id/{id}")]
-        public async Task<IActionResult> GetAllBlogsByAuthorId(int id)
+        [HttpGet("author/{authorId}")]
+        public async Task<IActionResult> GetBlogsByAuthorId(int authorId, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _blogService.GetAllBlogByAuthorIdAsync(id);
+            var result = await _blogService.GetBlogByAuthorId(authorId, pageNumber, pageSize);
             return Ok(result);
+
         }
 
         [HttpPut]

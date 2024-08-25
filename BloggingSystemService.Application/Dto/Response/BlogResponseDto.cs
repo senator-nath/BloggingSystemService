@@ -13,7 +13,9 @@ namespace BloggingSystemService.Application.Dto.Response
         public int Id { get; set; }
         public string Name { get; set; }
         public int AuthorId { get; set; }
+        public string AuthorName { get; set; }
+        // public IEnumerable<PostResponseDto> Posts { get; set; } = new List<PostResponseDto>();
 
-        public ICollection<Post> Posts { get; set; } = new List<Post>();
+        //public ICollection<Post> Posts { get; set; } = new List<Post>();
     }
 }

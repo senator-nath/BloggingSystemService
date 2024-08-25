@@ -19,14 +19,13 @@ namespace BloggingSystemService.Application.Features.Author.Command.CreateAuthor
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<AuthorService> _logger;
-        private readonly JwtTokenGenerator _jwtGenerator;
         private readonly AuthorRequestValidator _validator;
 
-        public RegisterAuthorCommandHandler(IUnitOfWork unitOfWork, ILogger<AuthorService> logger, JwtTokenGenerator jwtGenerator, AuthorRequestValidator validator)
+        public RegisterAuthorCommandHandler(IUnitOfWork unitOfWork, ILogger<AuthorService> logger, AuthorRequestValidator validator)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
-            _jwtGenerator = jwtGenerator;
+
             _validator = validator;
         }
         public async Task<AuthorResponseDto> Handle(RegisterAuthorCommand request, CancellationToken cancellationToken)
