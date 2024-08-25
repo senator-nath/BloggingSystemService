@@ -82,7 +82,7 @@ namespace BloggingSystemService.Application.Services.ServiceImplementation
 
             Log.Information("Starting registration process for author with email: {Email}", request.Email);
 
-            // Check if the email already exists
+
             bool emailExists = await _unitOfWork.authorRepository.ExistsAsync(a => a.Email == request.Email);
             if (emailExists)
             {
@@ -94,7 +94,7 @@ namespace BloggingSystemService.Application.Services.ServiceImplementation
                 };
             }
 
-            // Create a new author
+
             var author = new Author
             {
                 Name = request.Name,

@@ -17,17 +17,6 @@ namespace BloggingSystemService.Persistence.Implementation.RepositoryImplementat
         {
             _dbContext = dbContext;
         }
-        //public async Task<(IEnumerable<Blog> Blogs, int TotalCount)> GetBlogsByAuthorIdAsync(int authorId, int pageNumber, int pageSize)
-        //{
-        //    var query = _dbContext.Blogs.Where(b => b.AuthorId == authorId);
-        //    var totalCount = await query.CountAsync();
 
-        //    var blogs = await query
-        //        .Skip((pageNumber - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToListAsync();
-
-        //    return (blogs, totalCount);
-        //}
     }
 }
